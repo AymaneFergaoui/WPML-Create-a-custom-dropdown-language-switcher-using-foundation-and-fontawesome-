@@ -1,0 +1,21 @@
+/* language dropdown */
+ 
+function language_selector_flags(){
+  $languages = icl_get_languages('skip_missing=0&orderby=code'); /* retrieve active languages */
+  if(!empty($languages)){ /* Check if languages var is'nt empty
+    echo'<button class="button" type="button" data-toggle="lang-dropdown">';
+    foreach($languages as $l){
+        if($l['active']) echo '<img src="'.$l['country_flag_url'].'" height="12" alt="'.$l['language_code'].'" width="18" />'; // Print active language inside dropdown button
+    }
+    echo'<i class="fal fa-angle-down"></i></button>'; // Add fontawesome " angle down " icon https://fontawesome.com/icons/angle-down?style=solid
+    echo'<div class="dropdown-pane" data-position="top" data-alignment="center" id="lang-dropdown" data-dropdown data-hover="true" data-hover-pane="true">'; // Crete the "Dropdown-pane"
+      foreach($languages as $l){ // add all languages
+        echo '<li>';
+          if(!$l['active']) echo '<a class="notactive_lang" href="'.$l['url'].'">'; // add link only to not active languages
+          echo '<img src="'.$l['country_flag_url'].'" height="12" alt="'.$l['language_code'].'" width="18" />';
+          if(!$l['active']) echo '</a>';
+          echo '</li>';
+      }
+      echo'</div>';
+  }
+}
